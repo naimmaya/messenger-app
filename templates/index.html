@@ -49,6 +49,10 @@
         var currentRoom = '';
         var currentUser = '';
 
+        socket.on('connect', function() {
+            console.log('Connected to server!');
+        });
+
         function joinRoom(room) {
             currentUser = document.getElementById('username').value || 'Anonymous';
             currentRoom = room;
@@ -61,7 +65,10 @@
         function sendMessage() {
             var msgInput = document.getElementById('message-input');
             var message = msgInput.value;
-            if (message.trim() === '' || currentRoom === '') return;
+            if (message.trim() === '' || currentRoom === '') {
+                alert('Please select a room and type a message!');
+                return;
+            }
 
             socket.emit('send_message', { sender: currentUser, message: message, room: currentRoom });
             msgInput.value = '';
