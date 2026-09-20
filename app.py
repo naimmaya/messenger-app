@@ -2,7 +2,8 @@ import os
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit, join_room
 
-app = Flask(__name__)
+template_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'templates'))
+app = Flask(__name__, template_folder=template_dir)
 app.config['SECRET_KEY'] = 'messenger_secret_key'
 socketio = SocketIO(app, cors_allowed_origins="*")
 
